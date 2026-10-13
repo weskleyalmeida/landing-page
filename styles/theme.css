@@ -1,0 +1,104 @@
+/* ==========================================================================
+   Theme — toggle button and the few light-mode adjustments that tokens alone
+   don't cover. Colour tokens for both themes live in base.css.
+   ========================================================================== */
+
+/* Language switcher + theme toggle share one slot in the navbar */
+.navbar__prefs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: -16px;
+}
+
+.navbar__prefs .lang { margin-right: 0; }
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.theme-toggle:hover { color: var(--text); background: var(--tint-3); }
+
+.theme-toggle__icon {
+  grid-area: 1 / 1;
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity 0.3s var(--ease-out), transform 0.45s var(--ease-out);
+}
+
+/* Dark theme shows the sun (switch to light); light theme shows the moon */
+.theme-toggle__icon--moon { opacity: 0; transform: rotate(-35deg) scale(0.6); }
+:root[data-theme="light"] .theme-toggle__icon--sun { opacity: 0; transform: rotate(35deg) scale(0.6); }
+:root[data-theme="light"] .theme-toggle__icon--moon { opacity: 1; transform: none; }
+
+/* Keep the icon swap animated while the page-wide colour transition is active */
+.theme-transition .theme-toggle__icon {
+  transition-property: opacity, transform, stroke !important;
+  transition-duration: 0.45s !important;
+  transition-timing-function: var(--ease-out) !important;
+}
+
+@media (min-width: 861px) and (max-width: 1100px) {
+  .navbar__prefs { margin-right: -6px; }
+}
+
+/* Mobile menu: language options and the theme button on one row */
+@media (max-width: 860px) {
+  .navbar__prefs { margin-right: 0; gap: 8px; }
+  .navbar__prefs .lang { flex: 1; }
+
+  .theme-toggle {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+}
+
+/* Light-mode adjustments ---------------------------------------------------- */
+
+/* The code panel stays an editor window: dark island with the original tokens */
+:root[data-theme="light"] .code-panel {
+  --surface: #111317;
+  --bg-elevated: #0d0f12;
+  --line: rgba(255, 255, 255, 0.07);
+  --line-strong: rgba(255, 255, 255, 0.13);
+  --text: #ededef;
+  --text-faint: #5c616b;
+  --accent-strong: #79a9ff;
+  --tint-6: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+}
+
+/* Softer accent glows on a light canvas */
+:root[data-theme="light"] .hero__backdrop { opacity: 0.8; }
+:root[data-theme="light"] .hero__backdrop::after { background: radial-gradient(circle, rgba(77, 141, 255, 0.12), transparent 62%); }
+:root[data-theme="light"] .about__visual::after { background: radial-gradient(circle, rgba(77, 141, 255, 0.18), transparent 65%); }
+:root[data-theme="light"] .contact__glow { background: radial-gradient(closest-side, rgba(77, 141, 255, 0.12), transparent); }
+
+/* Portrait: a soft drop shadow replaces the glow-on-dark look */
+:root[data-theme="light"] .portrait__img { filter: saturate(0.95) contrast(1.02) drop-shadow(0 18px 30px rgba(16, 24, 40, 0.14)); }
+
+/* Small phones: compact language options so the theme button fits on the same row */
+@media (max-width: 480px) {
+  .navbar__prefs { gap: 6px; }
+  .navbar__prefs .lang { min-width: 0; }
+  .lang__menu { gap: 6px; }
+  .lang__option { gap: 6px; padding: 0 4px; font-size: 0.8rem; }
+}
+
+@media (max-width: 374px) {
+  .lang__flag { display: none; }
+}

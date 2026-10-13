@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Technology Stack — category rows with monochrome icons that pick up
+   their brand colour on hover
+   ========================================================================== */
+
+.stack__groups { border-top: 1px solid var(--line); }
+
+.stack__group {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.32fr) minmax(0, 1fr);
+  gap: 24px 48px;
+  align-items: center;
+  padding-block: clamp(24px, 3.4vw, 36px);
+  border-bottom: 1px solid var(--line);
+}
+
+.stack__meta { display: flex; align-items: baseline; gap: 16px; }
+
+.stack__index {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.stack__title {
+  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.stack__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech {
+  --brand: var(--text);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 52px;
+  padding: 0 20px 0 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--tint-1);
+  cursor: default;
+  transition: border-color 0.3s, background-color 0.3s, transform 0.35s var(--ease-out), box-shadow 0.3s;
+}
+
+.tech__icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-muted);
+  transition: fill 0.3s, transform 0.4s var(--ease-out), filter 0.3s;
+}
+
+.tech__name {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.tech:hover {
+  border-color: color-mix(in srgb, var(--brand) 45%, transparent);
+  background: color-mix(in srgb, var(--brand) 7%, transparent);
+  box-shadow: 0 10px 30px -18px var(--brand);
+  transform: translateY(-2px);
+}
+
+.tech:hover .tech__icon {
+  fill: var(--brand);
+  transform: scale(1.08) rotate(-4deg);
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--brand) 50%, transparent));
+}
+
+.tech:hover .tech__name { color: var(--text); }
+
+@media (max-width: 760px) {
+  .stack__group { grid-template-columns: 1fr; gap: 18px; }
+  .tech { height: 46px; padding: 0 16px 0 12px; gap: 10px; }
+  .tech__icon { width: 20px; height: 20px; }
+  .tech__name { font-size: 0.9rem; }
+}

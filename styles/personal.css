@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Beyond the Code — deliberately quiet
+   ========================================================================== */
+
+.personal { padding-block: clamp(72px, 10vw, 120px); }
+
+.personal__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) auto;
+  gap: 24px clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
+.personal__inner .eyebrow { margin-bottom: 12px; }
+
+.personal__title {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.personal__text { color: var(--text-muted); max-width: 520px; text-wrap: pretty; }
+
+.personal__interests { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.interest {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 42px;
+  padding-inline: 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.interest:hover { border-color: var(--line-strong); color: var(--text); }
+
+.interest__icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Tiny equaliser — only moves on hover */
+.eq { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+
+.eq i {
+  width: 2px;
+  height: 40%;
+  border-radius: 1px;
+  background: currentColor;
+  transform-origin: bottom;
+}
+.eq i:nth-child(2) { height: 85%; }
+.eq i:nth-child(3) { height: 60%; }
+.eq i:nth-child(4) { height: 100%; }
+
+.interest--music:hover .eq i { animation: eq 0.9s ease-in-out infinite alternate; background: var(--accent-strong); }
+.interest--music:hover .eq i:nth-child(2) { animation-delay: -0.3s; }
+.interest--music:hover .eq i:nth-child(3) { animation-delay: -0.6s; }
+.interest--music:hover .eq i:nth-child(4) { animation-delay: -0.15s; }
+
+@keyframes eq {
+  from { transform: scaleY(0.3); }
+  to { transform: scaleY(1); }
+}
+
+@media (max-width: 960px) {
+  .personal__inner { grid-template-columns: 1fr; }
+}

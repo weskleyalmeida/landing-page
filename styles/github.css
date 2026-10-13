@@ -1,0 +1,191 @@
+/* ==========================================================================
+   GitHub activity
+   ========================================================================== */
+
+.github__source {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.github__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  background: var(--bg-elevated);
+  overflow: hidden;
+}
+
+/* Stats */
+.github__stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.github__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: clamp(24px, 3vw, 36px);
+  border-right: 1px solid var(--line);
+}
+
+.github__stat:last-child { border-right: 0; }
+
+.github__stat dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.github__stat dd {
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.github__stat dd.github__stat-text {
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: clamp(2.2rem, 4.4vw, 3.4rem);
+  color: var(--accent-strong);
+}
+
+.github__languages,
+.github__recent { padding: clamp(24px, 3vw, 36px); }
+
+.github__languages { border-right: 1px solid var(--line); }
+
+.github__subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 24px;
+}
+
+/* Language bar */
+.langbar {
+  display: flex;
+  gap: 3px;
+  height: 10px;
+}
+
+.langbar span {
+  width: var(--w);
+  min-width: 4px;
+  border-radius: 3px;
+  background: var(--c);
+  transform-origin: left;
+  transition: filter 0.2s;
+}
+
+.js .github__languages:not(.is-visible) .langbar span { transform: scaleX(0); }
+.github__languages .langbar span { transition: transform 1s var(--ease-out); }
+.github__languages .langbar span:nth-child(2) { transition-delay: 60ms; }
+.github__languages .langbar span:nth-child(3) { transition-delay: 120ms; }
+.github__languages .langbar span:nth-child(n + 4) { transition-delay: 180ms; }
+
+.langbar__legend {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+}
+
+.langbar__legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.langbar__legend li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--c);
+  flex: none;
+}
+
+.langbar__legend span {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+/* Recent activity */
+.activity { display: grid; }
+
+.activity a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding 0.3s var(--ease-out);
+}
+
+.activity li:first-child a { padding-top: 0; }
+.activity li:last-child a { border-bottom: 0; padding-bottom: 0; }
+
+.activity__name {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.activity__lang {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}
+
+.activity time {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-faint);
+  min-width: 72px;
+  text-align: right;
+}
+
+.activity a:hover { padding-left: 6px; }
+.activity a:hover .activity__name { color: var(--accent-strong); }
+
+.github__cta { margin-top: 32px; text-align: center; }
+
+@media (max-width: 860px) {
+  .github__grid { grid-template-columns: 1fr; }
+  .github__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .github__stat:nth-child(2) { border-right: 0; }
+  .github__stat:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+  .github__languages { border-right: 0; border-bottom: 1px solid var(--line); }
+}
+
+@media (max-width: 420px) {
+  .langbar__legend { grid-template-columns: 1fr; }
+  .activity__lang { display: none; }
+  .activity a { grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+/* "Other" label in the static snapshot is wrapped for translation */
+.langbar__other { font-weight: inherit; }

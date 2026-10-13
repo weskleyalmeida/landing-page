@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Language switcher — dropdown on desktop, segmented control in the mobile menu
+   ========================================================================== */
+
+.lang { position: relative; margin-right: -16px; }
+
+.lang__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding-inline: 10px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.lang__toggle:hover,
+.lang__toggle[aria-expanded="true"] { color: var(--text); background: var(--tint-3); }
+
+.lang__chevron {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.lang__toggle[aria-expanded="true"] .lang__chevron { transform: rotate(180deg); }
+
+.lang__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 188px;
+  padding: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--popover-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 24px 48px -24px var(--shadow-popover);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out), visibility 0s linear 0.2s;
+}
+
+.lang.is-open .lang__menu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.lang__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: left;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.lang__option:hover,
+.lang__option:focus-visible { color: var(--text); background: var(--tint-4); }
+.lang__option:focus-visible { outline-offset: -2px; }
+.lang__option[aria-current="true"] { color: var(--text); }
+
+.lang__flag {
+  width: 18px;
+  height: 12px;
+  flex: none;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--frame-edge);
+}
+
+.lang__check {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.lang__option[aria-current="true"] .lang__check { opacity: 1; }
+
+/* Mobile menu: show the three options inline */
+@media (max-width: 860px) {
+  .lang { margin-right: 0; }
+
+  .lang__toggle { display: none; }
+
+  .lang__menu {
+    position: static;
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: inherit;
+    transform: none;
+    transition: none;
+  }
+
+  .lang__menu li { flex: 1; }
+
+  .lang__option {
+    justify-content: center;
+    height: 46px;
+    padding: 0 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.85rem;
+  }
+
+  .lang__option[aria-current="true"] {
+    border-color: rgba(77, 141, 255, 0.5);
+    background: var(--accent-soft);
+  }
+
+  .lang__check { display: none; }
+}
+
+/* Narrow desktops (861–1100px): tighten the menu so links, switcher and CTA stay on one row */
+@media (min-width: 861px) and (max-width: 1100px) {
+  .navbar__menu { gap: 14px; }
+  .navbar__links a { padding-inline: 8px; }
+  .lang { margin-right: -6px; }
+}
+
+/* Just above the mobile breakpoint the brand keeps only its "WF" mark */
+@media (min-width: 861px) and (max-width: 960px) {
+  .navbar__name { display: none; }
+}
